@@ -14,19 +14,6 @@
 2DAssets.meta
 TextMesh\ Pro/
 TextMesh\ Pro.meta
-Plugins/
-FluentAssertions.5.10.3/
-FluentAssertions.dll.meta
-CodeCoverage/
-CodeCoverage.meta
-[Mm]aterials/
-[Mm]aterials.meta
-Thirdparty/
-Thirdparty.meta
-SpaceSkies\ Free/
-SpaceSkies\ Free.meta
-MaterialPropertyOverrides-Demo.unity
-ExportedProjectFiles/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
