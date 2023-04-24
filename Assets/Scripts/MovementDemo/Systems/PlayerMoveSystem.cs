@@ -22,11 +22,13 @@ namespace TMG.GDG23
 
         public void OnStartRunning(ref SystemState state)
         {
+            if (MovementOptionsUIController.Instance == null) return;
             MovementOptionsUIController.Instance.SetMoveButtonColor(true);
         }
 
         public void OnStopRunning(ref SystemState state)
         {
+            if (MovementOptionsUIController.Instance == null) return;
             MovementOptionsUIController.Instance.SetMoveButtonColor(false);
         }
 
