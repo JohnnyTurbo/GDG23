@@ -12,10 +12,21 @@ namespace TMG.GDG23
         public void OnUpdate(ref SystemState state)
         {
             var deltaTime = SystemAPI.Time.DeltaTime;
+            
+            /*
+            var moveInput = SystemAPI.GetSingleton<PlayerMoveInput>().Current;
+            var playerMoveInput = new float2(moveInput.x, moveInput.z);
+            foreach (var (transform, moveSpeed) in SystemAPI.Query<RefRW<LocalTransform>, MoveSpeed>())
+            {
+                var inputVector = new float3(playerMoveInput.x, 0f, playerMoveInput.y);
+                transform.ValueRW.Position += inputVector * moveSpeed.Value * deltaTime;
+            }
+            */
+            
             new PlayerMoveJob
             {
                 DeltaTime = deltaTime
-            }.Schedule();
+            }.ScheduleParallel();
         }
 
         #region UI
@@ -45,6 +56,20 @@ namespace TMG.GDG23
         {
             transform.Position += input.Current * moveSpeed.Value * DeltaTime;
             transform.Rotation = quaternion.LookRotation(input.LastTrueInput, math.up());
+        }
+    }
+    
+    [BurstCompile]
+    public partial struct NewPlayerMoveJob : IJobEntity
+    {
+        public float DeltaTime;
+        public float2 PlayerMoveInput;
+        
+        [BurstCompile]
+        private void Execute(ref LocalTransform transform, in MoveSpeed moveSpeed)
+        {
+            var inputVector = new float3(PlayerMoveInput.x, 0f, PlayerMoveInput.y);
+            transform.Position += inputVector * moveSpeed.Value * DeltaTime;
         }
     }
 }
